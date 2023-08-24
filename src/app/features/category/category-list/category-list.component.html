@@ -1,0 +1,39 @@
+<div class="container">
+
+  <h1 class="mt-3">Category List</h1>
+                                   <!--to push the button on the rhs-->
+  <div class="d-flex justify-content-end mt-3">
+    <a [routerLink]="['/admin/categories/add']" class="btn btn-primary">Add Category</a>
+  </div>      <!--route that will be used to navigate from this page to
+                         add-category page,
+  also have to define this route in the app-routing.module.ts-->
+
+  <ng-container *ngIf="categories$ | async as categories"> <!--aysnc
+ pipe is subscribng on categories$(observable) and storing the
+ value as a variable (categories) and inside this ng-container 
+ if this observable is emitting a value, we will get it inside
+ and we can use it from categories variable,(alternate for subscription)
+observable subscription-->
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th> 
+          <th>Url Handle</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{category.id}}</td>
+          <td>{{category.name}}</td>
+          <td>{{category.urlHandle}}</td>
+          <td>
+            <a class="btn btn-light" [routerLink]="['/admin/categories', category.id]">Edit</a>
+          </td>       <!--take it to ths url /admin/categories/id-->
+        </tr>   <!--to the edit-category html -->
+      </tbody>
+    </table>
+  </ng-container>
+
+</div>
